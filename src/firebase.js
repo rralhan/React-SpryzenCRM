@@ -1,5 +1,6 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from "firebase/app";
+import {getAuth,connectAuthEmulator} from "firebase/auth"
+import { getFunctions } from "firebase-functions";
 
 const app = firebase.initializeApp({
 /*   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -17,7 +18,15 @@ const app = firebase.initializeApp({
   messagingSenderId: '942687408036',
   appId: '1:942687408036:web:acdcf2c1cb1d788cd3bb31',
   measurementId: 'G-J2F37CDHMF'
-})
+});
 
-export const auth = app.auth()
-export default app
+const fnc = getFunctions(app);
+const auth = app.auth();
+//connectFunctionsEmulator(fnc, "localhost", 5001);
+connectAuthEmulator(auth, "http://localhost:9099");
+
+export {fnc, auth, app}; 
+
+
+
+

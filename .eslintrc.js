@@ -1,10 +1,10 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
-    'es6': true
+    node: true
   },
-  'extends': [    
+  'extends': [
+    'plugin:react/essential',
     'eslint:recommended'
   ],
   rules: {
@@ -19,7 +19,7 @@ module.exports = {
     'prefer-const': 'error',
     //'no-alert': 'error',
   },
-  'parserOptions': {
-    'ecmaVersion': 2017
-  } 
+  parserOptions: {
+    parser: 'babel-eslint'
+  }
 };

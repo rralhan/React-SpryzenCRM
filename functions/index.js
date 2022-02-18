@@ -1,30 +1,30 @@
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-const express = require("express");
-const cors = require("cors");
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const express = require('express');
+const cors = require('cors');
 
-//this is like setting up connectionString
-//TODO: UserAuthentication and Authorization
-const serviceAccount = require("./permissions.json");
+// this is like setting up connectionString
+// TODO: UserAuthentication and Authorization
+const serviceAccount = require('./permissions.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
 const app = express();
 app.use(cors({origin: true}));
-const db = admin.firestore();
+//const db = admin.firestore();
 
 
-//Read (GET)
-app.get("/", (req, res) => res.status(200).send("Hey there!"));
+// Read (GET)
+app.get('/', (req, res) => res.status(200).send('Hey there!'));
 
-app.get("/hello", (req, resp) =>{
-  return resp.status(200).send("Hello World !!");
+app.get('/hello', (req, resp) =>{
+  return resp.status(200).send('Hello World !!');
 });
 
 
-//Create (POST)
-app.post("/create", (req, resp) =>{
+// Create (POST)
+/* app.post("/create", (req, resp) =>{
   (async () =>{
     try {
         debugger;
@@ -37,12 +37,12 @@ app.post("/create", (req, resp) =>{
         return resp.status(500).send(error);
     }
   })();
-});
+}); */
 
-//Update (PUT)
+// Update (PUT)
 
 
-//Delete (DELETE)
+// Delete (DELETE)
 
 // admin.initializeApp();
 
@@ -56,3 +56,17 @@ app.post("/create", (req, resp) =>{
 
 
 exports.api = functions.https.onRequest(app);
+
+
+exports.addMessage = functions.https.onCall((data, context) =>{
+  const text = data.text;
+  // Authentication / user information is automatically added to the request.
+  const uid = context.auth.uid;
+  const email = context.auth.token.email;
+
+  return {
+    Text:text,
+    UserId: uid,
+    Email: email,
+  };
+});
