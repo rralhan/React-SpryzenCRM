@@ -23,7 +23,7 @@ const app = firebase.initializeApp({
 const fnc = getFunctions(app);
 const auth = app.auth();
 //connectFunctionsEmulator(fnc, "localhost", 5001);
-connectAuthEmulator(auth, "http://localhost:9099");
+//connectAuthEmulator(auth, "http://localhost:9099");
 
 export {fnc, auth, app}; 
 
